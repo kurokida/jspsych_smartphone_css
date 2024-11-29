@@ -1,0 +1,58 @@
+/* Lines 1 to 11 apply to all PCs, Macs and smartphones. */
+.red{
+    color: red;
+}
+.bold{
+    font-weight: bold;
+}
+.instruction{
+  max-width: 500px;
+  text-align: left;
+}
+
+/* Following settings will apply to smartphones. Note that we consider a width of 480 pixels or less to be a smartphone. */
+@media screen and (max-width: 480px){ 
+    /* fonts and type */
+    .jspsych-display-element {
+        font-family: "Open Sans", "Arial", sans-serif;
+        font-size: 20px;
+        line-height: 1.6em;
+    }
+
+    .instruction{
+        max-width: 300px;
+        text-align: left;
+    }
+
+    select{
+        font-size: 20px;
+    }
+
+    button{
+        font-size: 20px;
+    }
+
+    video{
+        width: 400px;
+    }
+
+    .jspsych-btn{
+        font-size: 20px;
+    }
+
+    /* See,  jspsych-survey-likert-sample2.html */
+    .prompt1{ 
+        font-size: 20px;
+    }
+
+    /* scale */
+    .jspsych-survey-likert-opt-label{
+        font-size: 20px;
+    }
+
+    input[type="radio"] {
+        transform: scale(1.5);
+    }
+
+}
+  
