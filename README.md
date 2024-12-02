@@ -11,9 +11,10 @@ Just add the following line to the header section.
 
 # More to your liking
 
-This repository provides a sample CSS (smartphone.css). Edit this file as you like, and load it in the same way as jspsych.css.
+This repository provides a sample CSS (`smartphone.css`). Edit this file as you like, and load it in the same way as `jspsych.css`. Note that you need to include the `jspsych.css` before the `smartphone.css`, and the `smartphone.css` doesn't affect the appearance on PC.
 
 ```html
+<link rel="stylesheet" href="jspsych.css"></link>
 <link rel="stylesheet" href="smartphone.css"></link>
 ```
 
