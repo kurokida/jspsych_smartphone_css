@@ -22,6 +22,6 @@ This repository provides a sample CSS (`smartphone.css`). Edit this file as you 
 
 - A width of 480 pixels or less is considered to be a smartphone. You can change the size freely.
 - The CSS file does not enable keyboard input on smartphones.
-- It is not possible to specify `scale_width` and `slider_width` for each device. Therefore, it is necessary to specify the most suitable size for all devices.
-- Modifying the prompt text in the questions of [the survey-likert plugin](https://www.jspsych.org/v8/plugins/survey-likert/) is a little complicated. Sample files are included in this repository.
+- The `scale_width` property (e.g., [survey-likert](https://www.jspsych.org/v8/plugins/survey-likert/)) and `slider_width` property (e.g., [html-slider-response](https://www.jspsych.org/v8/plugins/html-slider-response/)) are overwritten by the `smartphone.css`.
+- Some CSS properties (e.g., The font size of the prompt in the survey-likert plugin) need to be given a higher priority by specifying `!important`.
 - [The free-sort plugin](https://www.jspsych.org/v8/plugins/free-sort/) is not supported.

@@ -1,10 +1,18 @@
-/* Lines 1 to 11 apply to all PCs, Macs and smartphones. */
+/* Lines 1 to 20 apply to all PCs, Macs and smartphones. */
+
+/* Disable Pull-to-Refresh */
+html, body {
+    overscroll-behavior: none;
+}
+
 .red{
     color: red;
 }
+
 .bold{
     font-weight: bold;
 }
+
 .instruction{
   max-width: 500px;
   text-align: left;
@@ -40,14 +48,41 @@
         font-size: 20px;
     }
 
-    /* See,  jspsych-survey-likert-sample2.html */
-    .prompt1{ 
-        font-size: 20px;
+    /* We have to use “!important” to raise the priority.
+    Font size of prompt */
+    .jspsych-survey-likert-statement{ 
+        font-size: 20px !important; 
     }
 
-    /* scale */
+    /* We have to use “!important” to raise the priority.
+    Note that the scale_width property is disabled on smartphones. */
+    .jspsych-survey-likert-opts{
+        width: 350px !important;
+    }
+
+    /* Font size of the letters used on the scale */
     .jspsych-survey-likert-opt-label{
-        font-size: 20px;
+        font-size: 15px;
+    }
+
+    .jspsych-html-slider-response-container{
+        width: 300px !important;
+    }
+
+    .jspsych-video-slider-response-container{
+        width: 300px !important;
+    }
+
+    .jspsych-image-slider-response-container{
+        width: 300px !important;
+    }
+
+    .jspsych-audio-slider-response-container{
+        width: 300px !important;
+    }
+
+    .jspsych-canvas-slider-response-container{
+        width: 300px !important;
     }
 
     input[type="radio"] {
