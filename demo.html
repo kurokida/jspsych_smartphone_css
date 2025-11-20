@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type"  content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://unpkg.com/jspsych@8.2.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-likert@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-video-slider-response@2.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-audio-slider-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-canvas-slider-response@2.1.0"></script>
+    <link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <link href="./smartphone.css" rel="stylesheet" type="text/css" />
+    <style>
+        img {
+            width: 400px;
+        }
+      </style>
+</head>
+<body></body>
+<script>
+
+    const jsPsych = initJsPsych({
+        show_progress_bar: true,
+        // message_progress_bar: "",
+    })
+    console.log(`jsPsych Version ${jsPsych.version()}`) 
+
+    const experiment = [];
+
+    const images = ["stimulus/person1.jpg", "stimulus/person2.jpg"];
+
+    const preload = {
+        type: jsPsychPreload,
+        images: images,
+        video: ['stimulus/sample_movie1.mp4'],
+        audio: ['stimulus/880Hz_100ms.wav']
+    }
+    experiment.push(preload)
+    
+    const leftQ = [
+        'Friendly',
+        'Trustworthy',
+        'Attractive',
+    ]
+
+    const rightQ = [
+        'Unfriendly',
+        'Untrustworthy',
+        'Unattractive',
+    ]
+
+    const prompt_list = [
+        "How friendly or unfriendly does this person appear to you?",
+        "How trustworthy or untrustworthy does this person seem?",
+        "How attractive or unattractive do you find this person?"
+    ]
+
+    const myQuestions = [
+        'Question 1',
+        'Question 2',
+        'Question 3',
+        'Question 4',
+        'Question 5',
+        'Question 6',
+    ]
+
+    const instruction = {
+        type: jsPsychInstructions,
+        pages: [`<div class="instruction">
+            <h2>This is a sample page demonstrating the CSS file for jsPsych.</h2>
+            <p>This is a sample instruction screen.</p>
+            </div>`],
+        show_clickable_nav: true,
+        show_page_number: true,
+    };
+        
+    experiment.push(instruction);
+
+    const enter_fullscreen = {
+        type: jsPsychFullscreen,
+        fullscreen_mode: true,
+        message: "<p>Note that fullscreen mode does not work on smartphones.</p>"
+    }
+    experiment.push(enter_fullscreen)
+    
+    const question_list1 = [];
+    leftQ.forEach((ques, idx) => {
+        question_list1.push(
+            {
+                prompt: prompt_list[idx],
+                labels: [`<p>1<br>${ques}</p>`, '<p>2</p>', '<p>3<br>Neutral</p>', '<p>4</p>', `<p>5<br>${rightQ[idx]}</p>`], 
+                required: true
+            }
+        )
+    })
+
+    const question_list2 = [];
+    myQuestions.forEach(ques => {
+        question_list2.push(
+            {
+                prompt: ques,
+                labels: [`<p>1<br>Does not apply at all</p>`, `<p>2</p>`, `<p>3</p>`, `<p>4<br>Applies very much</p>`], 
+                required: true
+            }
+        )
+    })
+    
+
+    
+    const stroop_trial = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p style="font-size:48px; color:red;">GREEN</p>',
+        choices: ['Red', 'Green', 'Blue'],
+        prompt: "<p>What color is the ink?</p>"
+    };
+    experiment.push(stroop_trial)
+
+    const html_slider_trial = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: '<div style="margin: 50px auto; width: 100px; height: 100px; background-color: rgb(46, 26, 122);"></div>',
+        labels: ['Purple', 'Blue'],
+        slider_width: 500,
+        require_movement: true,
+        prompt: '<p>Is this color closer to purple or blue? Use the slider above.</p>'
+    };
+
+    experiment.push(html_slider_trial)
+
+    const video_slider_trial = {
+        type: jsPsychVideoSliderResponse,
+        stimulus: ['stimulus/sample_movie1.mp4'],
+        labels: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'],
+        min: 1,
+        max: 5,
+        step: 1,
+        slider_start: 1,
+        prompt: '<p>Rate this video clip.</p><p>Slider movement is required, so you must interact with (click) the slider cursor to continue.</p>',
+        require_movement: true,
+        width: 600,
+        autoplay: true,
+        rate: 1.5,
+        response_ends_trial: true
+    };
+    experiment.push(video_slider_trial)
+
+    const audio_slider_trial = {
+        type: jsPsychAudioSliderResponse,
+        stimulus: 'stimulus/880Hz_100ms.wav',
+        labels: ['Very low', 'Very high'],
+        slider_width: 500,
+        prompt: '<p>Is this sound high or low?</p>'
+    }
+    experiment.push(audio_slider_trial)
+
+    function twoSquares(canvas) {
+        
+        const ctx = canvas.getContext('2d');
+
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        const rectWidth = 50;
+        const rectHeight = 50;
+
+        const leftX = centerX - 100 - rectWidth / 2;
+        const leftY = centerY - rectHeight / 2;
+
+        const rightX = centerX + 100 - rectWidth / 2;
+        const rightY = centerY - rectHeight / 2;
+
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(leftX, leftY, rectWidth, rectHeight);
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(rightX, rightY, rectWidth, rectHeight);
+
+    }
+
+    const canvas_slider_trial = {
+        type: jsPsychCanvasSliderResponse,
+        stimulus: twoSquares,
+        labels: ['0','10'],
+        canvas_size: [200, 500],
+        prompt: '<p class="instruction">How different would you say the colors of these two squares are on a scale from 0 (the same) to 10 (completely different)?</p>',
+        data: {color1: '#FF3333', color2: '#FF6A33'}
+    };
+    experiment.push(canvas_slider_trial);
+
+    const shuffled_images = jsPsych.randomization.shuffle(images);
+    
+    shuffled_images.forEach(img => {
+        let phase_num = 10;
+        question_list1.forEach(ques => {
+            const img_trial = {
+                type: jsPsychSurveyLikert,
+                scale_width: 600,
+                questions: [ques],
+                preamble: `
+                <div class="instruction  inline-block"><p>Please select the number that best represents your impression of the photo below and submit your answer.</p>
+                <p>The numbers have the following meanings:</p>
+                <ul>
+                    <li>1 = Very close to the left</li>
+                    <li>2 = Somewhat close to the left</li>
+                    <li>3 = Neutral (neither)</li>
+                    <li>4 = Somewhat close to the right</li>
+                    <li>5 = Very close to the right</li>
+                </ul></div>
+                <div class="text-center"><img src="${img}"></div>
+                `,
+                data: {
+                    phase: phase_num,
+                },
+
+            };  
+            phase_num++;
+            experiment.push(img_trial)
+        })
+    })
+     
+
+
+    const survey_likert_trial = {
+        type: jsPsychSurveyLikert,
+        questions: question_list2,
+        // scale_width: 300,
+        preamble: `<div class="instruction">
+        <p>Please read the following questions and consider how well each statement applies to you. Then, select the number that best represents your answer.</p>
+        <p>The numbers have the following meanings:</p>
+        <ul>
+        <li>1 = Does not apply at all</li>
+        <li>2 = Applies slightly</li>
+        <li>3 = Applies somewhat</li>
+        <li>4 = Applies very much</li>
+        </ul>
+        </div>`,
+    }
+    experiment.push(survey_likert_trial)
+
+    const exit_fullscreen = {
+        type: jsPsychFullscreen,
+        fullscreen_mode: false,
+        delay_after: 0,
+    }
+    experiment.push(exit_fullscreen)
+
+
+    const end_msg = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `<p>Thank you for participating!</p>`,
+        choices: "NO_KEYS"
+    }
+
+    experiment.push(end_msg)
+
+
+    jsPsych.run(experiment)
+
+</script>
+
+</html>

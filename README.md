@@ -1,5 +1,6 @@
 # jspsych_smartphone_css
 CSS to run [jsPsych](https://www.jspsych.org/v8/) on smartphones
+You can view [the demonstration](https://psycho.hes.kyushu-u.ac.jp/~kurokid/image_rating/demo.html). Please use a smartphone.
 
 # The Simplest Method
 
