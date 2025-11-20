@@ -50,12 +50,12 @@ html, body {
     }
 
     img {
-        max-width: 350px !important;
+        max-width: 300px !important;
         height: auto !important;
     }
 
     canvas {
-        max-width: 350px !important;
+        max-width: 300px !important;
         height: auto !important;
     }
 
@@ -68,7 +68,7 @@ html, body {
     }
 
     video{
-        max-width: 350px !important;
+        max-width: 300px !important;
     }
 
     .jspsych-btn{
@@ -84,7 +84,7 @@ html, body {
     /* We have to use “!important” to raise the priority.
     Note that the scale_width property is disabled on smartphones. */
     .jspsych-survey-likert-opts{
-        max-width: 350px !important;
+        max-width: 300px !important;
     }
 
     /* Font size of the letters used on the scale */
